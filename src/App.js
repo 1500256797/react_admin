@@ -1,25 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+// 应用的根组件  
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import Login from './pages/login/login.jsx'
+import Admin from './pages/admin/admin.jsx'
+import Home from './pages/home/index.jsx';
 
-function App() {
+
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <BrowserRouter>
+          <Routes>
+              {/* 默认初始化入口/home*/}
+              <Route path="/*" element={<Admin/>} />
+              {/* home模块路由 */}
+              <Route path="login" element={<Login />} />
+          </Routes>
+      </BrowserRouter>
   );
-}
+};
 
 export default App;

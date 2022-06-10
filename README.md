@@ -40,16 +40,17 @@
     pages: 路由组件
     App.js: 应用的根组件
     index.js: 入口js
+    assets: 公共资源 公共样式 公共图片
     
 ## 5 引入antd
     下载antd的包
     按需打包: 只打包import引入组件的js/css
-        下载工具包
-        config-overrides.js
-        package.json
+        yarn add react-app-rewired cunstomize-cra babel-plugin-import
+        修改 config-overrides.js
+        修改package.json中的scripts  否则上步配置不生效
     自定义主题
-        下载工具包
-        config-overrides.js
+        下载工具包 yarn add less less-loader  customize-cra-less-loader
+        修改config-overrides.js
     使用antd的组件
         根据antd的文档编写
         
@@ -58,7 +59,7 @@
     拆分应用路由:
       Login: 登陆
       Admin: 后台管理界面
-    注册路由:
+    注册路由:  react-router-domV6-beta 下 注册路由的方式发生了变化
       <BrowserRouter>
       <Switch>
       <Route path='' component={}/>
@@ -188,7 +189,8 @@
     3). 子路由
         定义路由组件
         注册路由
-        
+            react-router-dom v6 移除了redirect switch
+            antd v4 Link
 ## 5. LeftNav组件
     1). 使用antd的组件
         Menu / Item / SubMenu

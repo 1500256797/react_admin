@@ -5,6 +5,7 @@ import {useState,useEffect} from 'react'
 import {reqWeather} from '../../api'
 import { useLocation } from 'react-router-dom'
 import menuConfig from '../../config/menuConfig'
+import Wallet from '../wallet/wallet'
 //头部组件
 export default function Header() {
   const [currentTime, setCurrentTime] = useState(formateDate(Date.now()))
@@ -34,7 +35,6 @@ export default function Header() {
     let title = '' 
     menuConfig.forEach(item => {
       if (item.key === pathname) {
-        console.log('item.title',item.title)
         title =  item.title
       } else if (item.children) {
         const cItem = item.children.find(cItem => cItem.key === pathname)
@@ -48,8 +48,7 @@ export default function Header() {
   return (
     <div className='header'>
       <div className='header-top'>
-        <span>欢迎，admin</span>
-        <a href='javascript:'>退出</a>
+        <span><Wallet/></span>
       </div>
       <div className='header-bottom'>
         <div className='header-bottom-left'>

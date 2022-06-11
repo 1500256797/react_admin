@@ -21,6 +21,11 @@ const menuList = [
           icon: 'tool'
         },
       ]
+    },
+    {
+      title: 'web3工具箱',
+      key:'/web3tool',
+      icon:'tool'
     }
   ]
   

@@ -10,6 +10,7 @@ import Pie from '../charts/pie';
 import Line from '../charts/line';
 import Bar from '../charts/bar';
 import Home from '../home';
+import Web3Tool from '../web3tool';
 import { 
   Route, 
   Link ,
@@ -37,6 +38,7 @@ export default function Admin() {
           <Route path='/user' element={<User/>}></Route>
           <Route path='/charts/pie' element={<Pie/>}></Route>
           <Route path='/charts/bar' element={<Bar/>}></Route>
+          <Route path='/web3tool' element={<Web3Tool/>}></Route>
           <Route path="*" element={<Navigate to="/home" />} />
         </Routes>
 

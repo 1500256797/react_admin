@@ -6,6 +6,9 @@
 # step1：项目根目录下创建Dockerfile文件 和 .dockerignore文件
 # step2：在Dockerfile文件中添加CMD命令
 # node版本号   #From 表示从官方的node image中继承，继承版本号为15-alpine
+
+# 三、辅助工具
+# 用 Python 操作 Docker 的库。Docker 官方出品的 Python 库，可以用来批量、自动管理镜像   docker-py
 FROM node:15-alpine as builder 
 # 工作目录
 WORKDIR /react-app
@@ -39,3 +42,5 @@ COPY --from=builder /react-app/build /usr/share/nginx/html
 # 1、docker images  查看镜像软件大小
 
 # 2、不要用http-server，用nginx
+
+# 3、

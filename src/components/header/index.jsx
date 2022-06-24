@@ -9,23 +9,40 @@ import Wallet from '../wallet/wallet'
 //头部组件
 export default function Header() {
   const [currentTime, setCurrentTime] = useState(formateDate(Date.now()))
-  const [dayPicticturl, setDayPicticturl] = useState('')
-  const [weather,setWeather] = useState('晴')
+  const [province, setProvince] = useState('')
+  const [weather,setWeather] = useState('-')
   
-  //页面render()后执行一次，一般在此执行异步操作：发ajax请求/启动定时器
+  // useEffect的作用是相当于didMount和didUpdate时候会自动执行  这个是肯定的 只要你组件有更新 这个函数一定会执行。
+  // 反复执行这个进行渲染 会消耗性能 如果能实现if(prevs.status== this.state.status) 则不渲染，同样的，在useEffect中 如果你要比对，就在后面加上[state]即可。
+  // [stateA、stateB] 当stateA stateB和上次都一样时候  跳过本次更新  否则进行更新
+  // state会有三种情况：
+  // 1. 不传
+  // 表示每轮组件渲染完成后执行，也就是渲染一次执行一次。有点像 componentDidUpdate
+  // 2. 传空数组 []
+  // 表示没有任何依赖，永远都只执行一次。有点像 componentDidMount
+  // 3. 传入一个依赖数组 [props.haha]
+  // 表示依赖发生变化，渲染后执行。还是像 componentDidUpdate 只是设置了门槛
+  //如果你在useEffect开了定时器或者消息订阅 那你需要再组件销毁时（willUnmount）进行清除。清除的方法是定义一个return 函数
   useEffect(() => {
     //获取当前时间
-    setInterval(() => {
+    const timer = setInterval(() => {
       setCurrentTime(formateDate(Date.now()))
     }, 1000)//每隔一秒执行一次 获取当前时间
+    return ()=>{
+      clearInterval(timer)
+    }
+  }) 
+
+  useEffect(() => {
     //获取当前天气
     const getWeather = async () => {
-      const {dayPictureUrl, weather} = await reqWeather('北京')
-      setDayPicticturl(dayPictureUrl)
+      const {province, weather} = await reqWeather('110101')
+      console.log('weather',weather)
       setWeather(weather)
+      setProvince(province)
     }
     getWeather()
-  },[]) //仅在挂载和卸载的时候执行   //【value】 value变化了 他会执行useEffect
+  },[]) //仅在挂载
 
   const loc = useLocation()
 
@@ -56,7 +73,8 @@ export default function Header() {
         </div>
         <div className='header-bottom-right'>
           <span>{currentTime}</span>
-          <img src={dayPicticturl} alt="weather"/>
+          {/* <img src={dayPicticturl} alt="weather"/> */}
+          <span>{province}</span>
           <span>{weather}</span>
         </div>
 

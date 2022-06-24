@@ -17,17 +17,18 @@ import ajax from './ajax'
 //浏览器端：
 // 收到响应自动执行函数调用的js代码 也就执行了提前定义好的回调函数 并得到了需要的结果数 
 //实现方式：
-export const reqWeather = (city) => {
+export const reqWeather = (cityCode) => {
     return new Promise((resolve, reject) => {
-        const url = `http://api.map.baidu.com/telematics/v3/weather?location=${city}&output=json&ak=3p49MVra6urFRGOT9s8UBWr2`
+        const url = `https://restapi.amap.com/v3/weather/weatherInfo?city=${cityCode}&key=cb792e2b8ecb3287c4e44cba62aac6f4`
         jsonp(url, {}, (err, data) => {
-                console.log('jsonp请求的接口请求函数', err, data)
+                // console.log('jsonp请求的接口请求函数', err, data)
                 // 如果请求成功
-                if(!err && data.status === 'success') {
-                    const result = data.results[0].weather_data[0]
+                if(!err && data.status === '1') {
+                    const result = data.lives[0]
                     //取出需要的数据
-                    const {dayPictureUrl,weather} = result
-                    resolve({dayPictureUrl,weather} )
+                    const {province,weather} = result
+                    console.log('result',result)
+                    resolve({province,weather} )
                 }else{
                     message.error('请求失败')
                 }
